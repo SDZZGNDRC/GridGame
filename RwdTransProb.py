@@ -13,8 +13,8 @@ class RwdTransProb:
         self.m = m
     
 
-    def __call__(self, dest: State, src: State, reward: float) -> float:
-        return self.m[dest, src][reward]
+    def __call__(self, src: State, action: Action, reward: float) -> float:
+        return self.m[src, action][reward]
 
 
 

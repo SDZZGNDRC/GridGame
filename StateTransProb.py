@@ -10,9 +10,9 @@ class StateTransProb:
         # make sure the m has 3 dimensions
         if len(m.shape)!= 3:
             raise ValueError("The transition probability matrix should have 3 dimensions.")
-        # make sure the sum over the last two dimensions is 1
-        if not np.allclose(np.sum(m, axis=(1, 2)), 1):
-            raise ValueError("The sum over the last two dimensions of m should be 1")
+        # Constraint
+        if not np.allclose(np.sum(m, axis=2), 1):
+            raise ValueError("The sum of transition probability matrix should be 1 for each state-action pair.")
         self.m = m
     
 
