@@ -1,7 +1,13 @@
 import numpy as np
 
+from State import State
+from Action import Action
+
 
 class Policy:
+    '''
+    Shape of m: (num_states, num_actions)
+    '''
     def __init__(self, m: np.ndarray) -> None:
         # make sure m is a valid transition matrix
         if len(m.shape) != 2:
@@ -16,8 +22,12 @@ class Policy:
         return self.m[key]
     
 
+    def __call__(self, src: State, act: Action) -> float:
+        return self.m[src.id, act.id]
+
     def __str__(self) -> str:
         return f"Pi({self.m})"
+    
 
     def __repr__(self) -> str:
         return f"Pi({self.m})"

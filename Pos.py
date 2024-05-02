@@ -1,4 +1,4 @@
-
+from typing import List, Optional
 
 class Pos:
     '''
@@ -8,6 +8,10 @@ class Pos:
     def origin(cls) -> "Pos":
         return cls(0, 0)
     
+
+    @classmethod
+    def from_list(cls, lst: list) -> List["Pos"]:
+        return [cls(x, y) for x, y in lst]
 
     def __init__(self, x: int, y: int) -> None:
         self.x = x
@@ -28,7 +32,12 @@ class Pos:
     
 
     def __eq__(self, other) -> bool:
-        return self.x == other.x and self.y == other.y
+        if isinstance(other, Pos):
+            return self.x == other.x and self.y == other.y
+        if isinstance(other, tuple) and len(other) == 2:
+            return self.x == other[0] and self.y == other[1]
+        else:
+            raise TypeError("unsupported operand type(s) for ==: 'Pos' and '{}'".format(type(other)))
     
 
     def __hash__(self) -> int:
@@ -47,21 +56,10 @@ class Pos:
         return Pos(self.x * other, self.y * other)
     
 
-    @property
-    def neighbors(self) -> list:
-        return [
-            Pos(self.x + 1, self.y), Pos(self.x - 1, self.y), 
-            Pos(self.x, self.y + 1), Pos(self.x, self.y - 1)
-        ]
+    def __iter__(self):
+        return iter((self.x, self.y))
     
 
-    @property
-    def diagonal_neighbors(self) -> list:
-        return [
-            Pos(self.x + 1, self.y + 1), Pos(self.x - 1, self.y - 1), 
-            Pos(self.x + 1, self.y - 1), Pos(self.x - 1, self.y + 1)
-        ]
-    
 
 
 

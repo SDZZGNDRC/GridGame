@@ -1,9 +1,9 @@
-from typing import List
+from typing import List, Optional
 from Action import Action
 
 
 class State:
-    def __init__(self, id: int, actions: List[Action]):
+    def __init__(self, id: int, actions: Optional[List[Action]] = None):
         self.id = id
         self.actions = actions
     

@@ -1,9 +1,9 @@
-from typing import Callable
+from typing import Callable, Optional
 from GridWorld import GridWorld
 
 
 class Action:
-    def __init__(self, id: str, grid_world: GridWorld, fn: Callable[[GridWorld], bool]):
+    def __init__(self, id: str, grid_world: Optional[GridWorld] = None, fn: Optional[Callable[[GridWorld], bool]] = None):
         self.id = id
         self.grid_world = grid_world
         self.fn = fn
