@@ -4,7 +4,7 @@ from Action import Action
 
 class RwdTransProb:
     '''
-    Shape: (num_states, num_actions, num_rewards)
+    Shape: (num_states, num_actions)
     '''
     def __init__(self, m: np.ndarray):
         # make sure m is a 2D array

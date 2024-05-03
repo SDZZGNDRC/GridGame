@@ -1,6 +1,5 @@
 from copy import deepcopy
 import numpy as np
-from bidict import bidict
 from BellmanSolver import BellmanSolver
 from GridWorld import GridWorld
 from StateTransProb import StateTransProb
@@ -26,7 +25,7 @@ def main():
         (3,1), (3,3),
         (4,1)
     ])
-    target = (4,3)
+    target = (3,2)
     grid_world = GridWorld(N, N, obstacles)
     actions = [Action(i) for i in range(num_actions)]
     delta_acts = {
@@ -34,13 +33,29 @@ def main():
         (0,-1): actions[2], (0,1): actions[3],
         (0,0): actions[4]
     }
+    named_acts = {
+        "u": actions[0], "d": actions[1],
+        "l": actions[2], "r": actions[3],
+        "s": actions[4]
+    }
     rewards = [-1, 0, 1]
     gamma = 0.9
     
-    policy = np.random.rand(num_states, num_actions)
+    # policy = np.random.rand(num_states, num_actions)
     # normalize policy
-    policy = policy / np.sum(policy, axis=1, keepdims=True)
-    policy = Policy(policy)
+    policy = np.array([
+        ['r', 'r', 'r', 'd', 'd'],
+        ['u', 'u', 'r', 'd', 'd'],
+        ['u', 'l', 'd', 'r', 'd'],
+        ['u', 'r', 's', 'l', 'd'],
+        ['u', 'r', 'u', 'l', 'l'],
+    ])
+    m = np.zeros((num_states, num_actions))
+    for i in range(policy.shape[0]):
+        for j in range(policy.shape[1]):
+            m[i*N+j, named_acts[policy[i][j]].id] = 1
+    # policy = policy / np.sum(policy, axis=1, keepdims=True)
+    policy = Policy(m)
     init_v = np.zeros(num_states)
     default_rewards = {rewards[0]: 0, rewards[1]: 1, rewards[2]: 0}
     rwd_trans_prob = np.array([[deepcopy(default_rewards) for _ in range(num_actions)] for _ in range(num_states)])
@@ -52,7 +67,7 @@ def main():
                 rewards[2]: 0
             }
     target_pos = Pos(target[0], target[1])
-    for src in grid_world.neighbors(target_pos):
+    for src in grid_world.neighbors(target_pos) + [target_pos]:
         rwd_trans_prob[src.x*N+src.y, delta_acts[tuple(target_pos-src)].id] = {
             rewards[0]: 0,
             rewards[1]: 0,
@@ -72,11 +87,13 @@ def main():
     R_pi = Rpi(policy, rwd_trans_prob)
     solver = BellmanSolver(init_v, np.array(R_pi), gamma, np.array(ppi))
     v = solver.solve()
-    print(v)
+    print("R_pi:\n", np.array(R_pi).reshape(N, N))
+    print(v.reshape(N, N))
     print(np.max(v))
 
 
 if __name__ == '__main__':
+    np.set_printoptions(precision=1)
     main()
 
 

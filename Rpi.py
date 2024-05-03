@@ -17,7 +17,7 @@ class Rpi:
         self.rwd_trans_prob = rwd_trans_prob
         self.states = list(map(lambda x: State(x), range(self.rwd_trans_prob.m.shape[0])))
         self.actions = list(map(lambda x: Action(x), range(self.rwd_trans_prob.m.shape[1])))
-        self.__data = np.sum(np.vectorize(self.__convert)(self.rwd_trans_prob.m), axis=1)
+        self.__data = np.sum(np.vectorize(self.__convert)(self.rwd_trans_prob.m)*self.policy.m, axis=1)
     
 
     def __call__(self, src: State) -> float:
