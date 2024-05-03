@@ -1,3 +1,4 @@
+from typing import Dict, Tuple
 import numpy as np
 from GridGame.State import State
 from GridGame.Action import Action
@@ -27,3 +28,18 @@ class StateTransProb:
 
     def __getitem__(self, key):
         return self.m[key]
+    
+
+    @classmethod
+    def from_grid(cls, N: int, M: int, num_actions: int, delta_acts: Dict[Tuple[int,int], Action]) -> 'StateTransProb':
+        num_states = N*M
+        
+        state_trans_prob = np.zeros((num_states, num_actions, num_states))
+        for x in range(N):
+            for y in range(N):
+                state_trans_prob[x*N+y, delta_acts[(0,0)].id, x*N+y] = 1
+                state_trans_prob[x*N+y, delta_acts[(-1,0)].id, max(x-1,0)*N+y] = 1
+                state_trans_prob[x*N+y, delta_acts[(1,0)].id, min(x+1,N-1)*N+y] = 1
+                state_trans_prob[x*N+y, delta_acts[(0,-1)].id, x*N+max(y-1,0)] = 1
+                state_trans_prob[x*N+y, delta_acts[(0,1)].id, x*N+min(y+1,N-1)] = 1
+        return cls(state_trans_prob)

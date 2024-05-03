@@ -3,7 +3,7 @@ import numpy as np
 from GridGame.Pos import Pos
 
 class GridWorld:
-    def __init__(self, n: int, m: int, obstacles: List[Pos], init_pos: Optional[Pos] = None) -> None:
+    def __init__(self, n: int, m: int, obstacles: List[Pos], init_pos: Optional[Pos] = None, target: Optional[Pos] = None) -> None:
         self.n = n
         self.m = m
         self.obstacles = obstacles
@@ -11,6 +11,7 @@ class GridWorld:
                 obstacle.y < 0 or obstacle.y >= m for obstacle in obstacles):
             raise ValueError('Obstacle position out of range')
         self.init_pos = init_pos if init_pos else Pos.origin()
+        self.target = target if target else Pos(n - 1, m - 1)
         self.now_pos = self.init_pos
 
     def move(self, direction: Literal['up', 'down', 'left', 'right']) -> bool:
@@ -66,7 +67,18 @@ class GridWorld:
     def shape(self) -> Tuple[int, int]:
         return (self.n, self.m)
 
-
+    @classmethod
+    def from_maps(cls, maps: np.ndarray) -> 'GridWorld':
+        N, M = maps.shape
+        obstacles = []
+        target = None
+        for i in range(N):
+            for j in range(M):
+                if maps[i][j] == '#':
+                    obstacles.append(Pos(i,j))
+                elif maps[i][j] == 'O':
+                    target = Pos(i,j)
+        return cls(N, M, obstacles, target=target)
 
 
 

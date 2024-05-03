@@ -1,3 +1,4 @@
+from typing import Dict
 import numpy as np
 
 from GridGame.State import State
@@ -33,6 +34,13 @@ class Policy:
         return f"Pi({self.m})"
     
 
-
+    @classmethod
+    def from_grid(cls, grid: np.ndarray, num_actions: int, named_acts: Dict[str, Action]) -> 'Policy':
+        N, M = grid.shape
+        m = np.zeros((grid.size, num_actions))
+        for i in range(N):
+            for j in range(M):
+                m[i*M+j, named_acts[grid[i][j]].id] = 1
+        return cls(m)
 
 
