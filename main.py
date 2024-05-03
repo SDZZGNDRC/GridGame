@@ -1,15 +1,15 @@
 from copy import deepcopy
 import numpy as np
-from BellmanSolver import BellmanSolver
-from GridWorld import GridWorld
-from StateTransProb import StateTransProb
-from RwdTransProb import RwdTransProb
-from State import State
-from Action import Action
-from Policy import Policy
-from Pos import Pos
-from Ppi import Ppi
-from Rpi import Rpi
+from GridGame.BellmanSolver import BellmanSolver
+from GridGame.GridWorld import GridWorld
+from GridGame.StateTransProb import StateTransProb
+from GridGame.RwdTransProb import RwdTransProb
+from GridGame.State import State
+from GridGame.Action import Action
+from GridGame.Policy import Policy
+from GridGame.Pos import Pos
+from GridGame.Ppi import Ppi
+from GridGame.Rpi import Rpi
 
 import numpy as np
 

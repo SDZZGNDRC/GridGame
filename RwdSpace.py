@@ -1,6 +1,6 @@
 from typing import List, Tuple, Dict
-from State import State
-from Action import Action
+from GridGame.State import State
+from GridGame.Action import Action
 
 class RwdSpace:
     def __init__(self) -> None:

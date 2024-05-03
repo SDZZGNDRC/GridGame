@@ -1,6 +1,6 @@
 from typing import Tuple, Optional, Literal, List
 import numpy as np
-from Pos import Pos
+from GridGame.Pos import Pos
 
 class GridWorld:
     def __init__(self, n: int, m: int, obstacles: List[Pos], init_pos: Optional[Pos] = None) -> None:

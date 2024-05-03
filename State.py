@@ -1,5 +1,5 @@
 from typing import List, Optional
-from Action import Action
+from GridGame.Action import Action
 
 
 class State:

@@ -1,6 +1,6 @@
 import numpy as np
-from State import State
-from Action import Action
+from GridGame.State import State
+from GridGame.Action import Action
 
 class RwdTransProb:
     '''

@@ -1,5 +1,5 @@
 from typing import Callable, Optional
-from GridWorld import GridWorld
+from GridGame.GridWorld import GridWorld
 
 
 class Action:
