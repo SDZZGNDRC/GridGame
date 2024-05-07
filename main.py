@@ -54,7 +54,6 @@ def main():
         ['^', '>', '^', '<', '<'],
     ])
     policy = Policy.from_grid(policy, num_actions, named_acts)
-    init_v = np.zeros(num_states)
 
     rwd_trans_prob = RwdTransProb.from_grid_world(grid_world)
     state_trans_prob = np.zeros((num_states, num_actions, num_states))
@@ -68,7 +67,7 @@ def main():
     state_trans_prob = StateTransProb(state_trans_prob)
     ppi = Ppi(state_trans_prob, policy)
     R_pi = Rpi(policy, rwd_trans_prob)
-    solver = BellmanSolver(init_v, np.array(R_pi), gamma, np.array(ppi))
+    solver = BellmanSolver(np.array(R_pi), gamma, np.array(ppi))
     v = solver.solve()
     print("R_pi:\n", np.array(R_pi).reshape(N, N))
     print(v.reshape(N, N))

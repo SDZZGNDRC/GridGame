@@ -35,14 +35,13 @@ def test_case_1():
         ['u', 'r', 'u', 'l', 'l'],
     ])
     policy = Policy.from_grid(policy, num_actions, named_acts)
-    init_v = np.zeros(num_states)
     
     rwd_trans_prob = RwdTransProb.from_grid_world(grid_world)
     state_trans_prob = StateTransProb.from_grid(N, M, num_actions, delta_acts)
     ppi = Ppi(state_trans_prob, policy)
     R_pi = Rpi(policy, rwd_trans_prob)
     print(np.array(R_pi).reshape(N, M))
-    solver = BellmanSolver(init_v, np.array(R_pi), gamma, np.array(ppi))
+    solver = BellmanSolver(np.array(R_pi), gamma, np.array(ppi))
     v = solver.solve()
     print(v.reshape(N,M))
     assert np.allclose(v.reshape(N,M), np.array([
@@ -110,7 +109,6 @@ def test_case_2():
             m[i*N+j, named_acts[policy[i][j]].id] = 1
     # policy = policy / np.sum(policy, axis=1, keepdims=True)
     policy = Policy(m)
-    init_v = np.zeros(num_states)
     default_rewards = {rewards[0]: 0, rewards[1]: 1, rewards[2]: 0}
     rwd_trans_prob = np.array([[deepcopy(default_rewards) for _ in range(num_actions)] for _ in range(num_states)])
     for obstacle in grid_world.obstacles:
@@ -138,7 +136,7 @@ def test_case_2():
     state_trans_prob = StateTransProb(state_trans_prob)
     ppi = Ppi(state_trans_prob, policy)
     R_pi = Rpi(policy, rwd_trans_prob)
-    solver = BellmanSolver(init_v, np.array(R_pi), gamma, np.array(ppi))
+    solver = BellmanSolver(np.array(R_pi), gamma, np.array(ppi))
     v = solver.solve()
     print(v.reshape(N,N))
     assert np.allclose(v.reshape(N,N), np.array([
@@ -205,7 +203,6 @@ def test_case_3():
             m[i*N+j, named_acts[policy[i][j]].id] = 1
     # policy = policy / np.sum(policy, axis=1, keepdims=True)
     policy = Policy(m)
-    init_v = np.zeros(num_states)
     default_rewards = {rewards[0]: 0, rewards[1]: 1, rewards[2]: 0}
     rwd_trans_prob = np.array([[deepcopy(default_rewards) for _ in range(num_actions)] for _ in range(num_states)])
     for obstacle in grid_world.obstacles:
@@ -262,7 +259,7 @@ def test_case_3():
     ppi = Ppi(state_trans_prob, policy)
     R_pi = Rpi(policy, rwd_trans_prob)
     print(np.array(R_pi).reshape(N,N))
-    solver = BellmanSolver(init_v, np.array(R_pi), gamma, np.array(ppi))
+    solver = BellmanSolver(np.array(R_pi), gamma, np.array(ppi))
     v = solver.solve()
     print(rwd_trans_prob[0,3])
     print(v.reshape(N,N))
@@ -298,14 +295,13 @@ def test_case_4():
         ['o', '>', 'o', '>', 'o'],
     ])
     policy = Policy.from_grid(policy, num_actions, named_acts)
-    init_v = np.zeros(num_states)
     
     rwd_trans_prob = RwdTransProb.from_grid_world(grid_world)
     state_trans_prob = StateTransProb.from_grid(N, M, num_actions, delta_acts)
     ppi = Ppi(state_trans_prob, policy)
     R_pi = Rpi(policy, rwd_trans_prob)
     print(np.array(R_pi).reshape(N,M))
-    solver = BellmanSolver(init_v, np.array(R_pi), gamma, np.array(ppi))
+    solver = BellmanSolver(np.array(R_pi), gamma, np.array(ppi))
     v = solver.solve()
     print(v.reshape(N,M))
     assert np.allclose(v.reshape(N,M), np.array([
@@ -334,14 +330,13 @@ def test_case_5():
         ['>', 'o'],
     ])
     policy = Policy.from_grid(policy, num_actions, named_acts)
-    init_v = np.zeros(num_states)
     
     rwd_trans_prob = RwdTransProb.from_grid_world(grid_world)
     state_trans_prob = StateTransProb.from_grid(N, M, num_actions, delta_acts)
     ppi = Ppi(state_trans_prob, policy)
     R_pi = Rpi(policy, rwd_trans_prob)
     print(np.array(R_pi).reshape(N,M))
-    solver = BellmanSolver(init_v, np.array(R_pi), gamma, np.array(ppi))
+    solver = BellmanSolver(np.array(R_pi), gamma, np.array(ppi))
     v = solver.solve()
     print(v.reshape(N,M))
     assert np.allclose(v.reshape(N,M), np.array([
