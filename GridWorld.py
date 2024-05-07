@@ -115,6 +115,7 @@ class GridWorld:
             plt.savefig(out_file)
         else:
             plt.show()
+        plt.close()
 
     def draw_v_pi(self, v_pi: np.ndarray, decimal_places: int = 1, out_file: Optional[Path] = None) -> None:
         _, axs = plt.subplots(self.n, self.m, figsize=(5, 5))
@@ -148,6 +149,7 @@ class GridWorld:
             plt.savefig(out_file)
         else:
             plt.show()
+        plt.close()
 
     @property
     def shape(self) -> Tuple[int, int]:

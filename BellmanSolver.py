@@ -26,7 +26,7 @@ class BellmanSolver:
         self.P = P
     
 
-    def solve(self, epsilon=1e-4, max_iterations=1000) -> np.ndarray:
+    def solve(self, epsilon=1e-4, max_iterations=1000, truncated: bool = False) -> np.ndarray:
         last = np.zeros(self.P.shape[0])
         for _ in range(max_iterations):
             v_k = self.r + self.gamma * np.dot(self.P, last)
@@ -34,7 +34,8 @@ class BellmanSolver:
                 break
             last = v_k.copy()
         else:
-            raise ValueError("Failed to converge")
+            if not truncated:
+                raise ValueError("Failed to converge")
         return v_k
     
 
