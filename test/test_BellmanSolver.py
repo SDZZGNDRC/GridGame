@@ -1,11 +1,9 @@
 from copy import deepcopy
 import numpy as np
-from bidict import bidict
 from GridGame.BellmanSolver import BellmanSolver
 from GridGame.GridWorld import GridWorld
 from GridGame.StateTransProb import StateTransProb
 from GridGame.RwdTransProb import RwdTransProb
-from GridGame.State import State
 from GridGame.Action import Action, named_acts, delta_acts, actions, num_actions
 from GridGame.Policy import Policy
 from GridGame.Pos import Pos
@@ -40,15 +38,14 @@ def test_case_1():
     init_v = np.zeros(num_states)
     
     rwd_trans_prob = RwdTransProb.from_grid_world(grid_world)
-    state_trans_prob = StateTransProb.from_grid(N, N, num_actions, delta_acts)
+    state_trans_prob = StateTransProb.from_grid(N, M, num_actions, delta_acts)
     ppi = Ppi(state_trans_prob, policy)
     R_pi = Rpi(policy, rwd_trans_prob)
-    print(np.array(R_pi).reshape(N,N))
+    print(np.array(R_pi).reshape(N, M))
     solver = BellmanSolver(init_v, np.array(R_pi), gamma, np.array(ppi))
     v = solver.solve()
-    print(rwd_trans_prob[4,3])
-    print(v.reshape(N,N))
-    assert np.allclose(v.reshape(N,N), np.array([
+    print(v.reshape(N,M))
+    assert np.allclose(v.reshape(N,M), np.array([
         [3.5, 3.9, 4.3, 4.8, 5.3],
         [3.1, 3.5, 4.8, 5.3, 5.9],
         [2.8, 2.5,10.0, 5.9, 6.6],
@@ -304,15 +301,14 @@ def test_case_4():
     init_v = np.zeros(num_states)
     
     rwd_trans_prob = RwdTransProb.from_grid_world(grid_world)
-    state_trans_prob = StateTransProb.from_grid(N, N, num_actions, delta_acts)
+    state_trans_prob = StateTransProb.from_grid(N, M, num_actions, delta_acts)
     ppi = Ppi(state_trans_prob, policy)
     R_pi = Rpi(policy, rwd_trans_prob)
-    print(np.array(R_pi).reshape(N,N))
+    print(np.array(R_pi).reshape(N,M))
     solver = BellmanSolver(init_v, np.array(R_pi), gamma, np.array(ppi))
     v = solver.solve()
-    print(rwd_trans_prob[4,3])
-    print(v.reshape(N,N))
-    assert np.allclose(v.reshape(N,N), np.array([
+    print(v.reshape(N,M))
+    assert np.allclose(v.reshape(N,M), np.array([
         [  0.0,  0.0,  0.0,-10.0,-10.0],
         [ -9.0,-10.0, -0.4, -0.5,-10.0],
         [-10.0, -0.5,  0.5, -0.5,  0.0],
@@ -321,6 +317,37 @@ def test_case_4():
     ]), atol=1e-1)
 
 
+def test_case_5():
+    np.random.seed(0)
+    N, M = 2, 2
+
+    num_states = N*M
+    maps = np.array([
+        [' ', '#'],
+        [' ', 'O'],
+    ])
+    grid_world = GridWorld.from_maps(maps)
+    gamma = 0.9
+
+    policy = np.array([
+        ['>', 'v'],
+        ['>', 'o'],
+    ])
+    policy = Policy.from_grid(policy, num_actions, named_acts)
+    init_v = np.zeros(num_states)
+    
+    rwd_trans_prob = RwdTransProb.from_grid_world(grid_world)
+    state_trans_prob = StateTransProb.from_grid(N, M, num_actions, delta_acts)
+    ppi = Ppi(state_trans_prob, policy)
+    R_pi = Rpi(policy, rwd_trans_prob)
+    print(np.array(R_pi).reshape(N,M))
+    solver = BellmanSolver(init_v, np.array(R_pi), gamma, np.array(ppi))
+    v = solver.solve()
+    print(v.reshape(N,M))
+    assert np.allclose(v.reshape(N,M), np.array([
+        [ 8,10],
+        [10,10],
+    ]), atol=1e-1)
 
 
 

@@ -43,4 +43,8 @@ class Policy:
                 m[i*M+j, named_acts[grid[i][j]].id] = 1
         return cls(m)
 
+    @classmethod
+    def random(cls, num_states: int, num_actions: int) -> 'Policy':
+        m = np.random.rand(num_states, num_actions)
+        return cls(m / m.sum(axis=1, keepdims=True))  # normalize the rows to sum up to 1
 

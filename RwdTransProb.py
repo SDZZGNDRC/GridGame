@@ -1,3 +1,4 @@
+from typing import Optional, Union, Dict, List
 import numpy as np
 from copy import deepcopy
 from GridGame.State import State
@@ -18,8 +19,11 @@ class RwdTransProb:
         self.m = m
     
 
-    def __call__(self, src: State, action: Action, reward: float) -> float:
-        return self.m[src.id, action.id][reward]
+    def __call__(self, src: State, action: Action, reward: Optional[float] = None) -> Union[Dict[float, float], float]:
+        if reward is None:
+            return self.m[src.id, action.id]
+        else:
+            return self.m[src.id, action.id][reward]
     
 
     def __getitem__(self, key):
@@ -27,7 +31,7 @@ class RwdTransProb:
 
 
     @classmethod
-    def from_grid_world(cls, grid_world: GridWorld) -> 'RwdTransProb':
+    def from_grid_world(cls, grid_world: GridWorld, rewards: Optional[List[float]] = None) -> 'RwdTransProb':
         N, M = grid_world.n, grid_world.m
         num_states = N*M
         num_actions = 5
@@ -45,7 +49,8 @@ class RwdTransProb:
             "<": actions[2], ">": actions[3],
             "o": actions[4]
         }
-        rewards = [-1, 0, 1]
+        if rewards is None:
+            rewards = [-1, 0, 1]
         default_rewards = {rewards[0]: 0, rewards[1]: 1, rewards[2]: 0}
         rwd_trans_prob = np.array([[deepcopy(default_rewards) for _ in range(num_actions)] for _ in range(num_states)])
         for obstacle in grid_world.obstacles:

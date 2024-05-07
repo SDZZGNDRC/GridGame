@@ -1,11 +1,18 @@
 {
     "cSpell.words": [
         "allclose",
+        "argmax",
         "bidict",
+        "figsize",
+        "hspace",
         "keepdims",
+        "linewidth",
         "nditer",
         "printoptions",
         "rtol",
-        "vectorize"
+        "vectorize",
+        "wspace",
+        "xticks",
+        "yticks"
     ]
 }
