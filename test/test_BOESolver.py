@@ -1,11 +1,11 @@
 import numpy as np
 import inspect
 from pathlib import Path
-from GridGame.BOESolver import BOESolver
-from GridGame.GridWorld import GridWorld
-from GridGame.StateTransProb import StateTransProb
-from GridGame.RwdTransProb import RwdTransProb
-from GridGame.Action import delta_acts, num_actions
+from BOESolver import BOESolver
+from GridWorld import GridWorld
+from StateTransProb import StateTransProb
+from RwdTransProb import RwdTransProb
+from Action import delta_acts, num_actions
 
 
 def test_case_1():

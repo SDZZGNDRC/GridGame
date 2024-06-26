@@ -1,8 +1,8 @@
 from typing import Dict
 import numpy as np
 
-from GridGame.State import State
-from GridGame.Action import Action
+from State import State
+from Action import Action
 
 
 class Policy:

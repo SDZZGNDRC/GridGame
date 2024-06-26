@@ -4,7 +4,7 @@ from pathlib import Path
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle, Circle
-from GridGame.Pos import Pos
+from Pos import Pos
 
 class GridWorld:
     def __init__(self, n: int, m: int, obstacles: List[Pos], init_pos: Optional[Pos] = None, target: Optional[Pos] = None) -> None:

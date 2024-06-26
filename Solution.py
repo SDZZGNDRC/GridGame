@@ -1,6 +1,6 @@
 from typing import List, Tuple
-from GridGame.Pos import Pos
-from GridGame.GridWorld import GridWorld
+from Pos import Pos
+from GridWorld import GridWorld
 
 
 class Solution:

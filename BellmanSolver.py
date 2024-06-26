@@ -1,13 +1,13 @@
 import numpy as np
 
-from GridGame.GridWorld import GridWorld
-from GridGame.StateTransProb import StateTransProb
-from GridGame.RwdTransProb import RwdTransProb
-from GridGame.Action import Action, named_acts, delta_acts, actions, num_actions
-from GridGame.Policy import Policy
-from GridGame.Pos import Pos
-from GridGame.Ppi import Ppi
-from GridGame.Rpi import Rpi
+from GridWorld import GridWorld
+from StateTransProb import StateTransProb
+from RwdTransProb import RwdTransProb
+from Action import Action, named_acts, delta_acts, actions, num_actions
+from Policy import Policy
+from Pos import Pos
+from Ppi import Ppi
+from Rpi import Rpi
 
 
 class BellmanSolver:

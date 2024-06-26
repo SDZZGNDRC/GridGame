@@ -1,5 +1,5 @@
 from typing import Callable, Optional
-from GridGame.GridWorld import GridWorld
+from GridWorld import GridWorld
 
 class Action:
     def __init__(self, id: str, grid_world: Optional[GridWorld] = None, fn: Optional[Callable[[GridWorld], bool]] = None):

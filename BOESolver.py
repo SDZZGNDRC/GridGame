@@ -1,11 +1,11 @@
 import numpy as np
 from typing import Literal, Tuple
 
-from GridGame.BellmanSolver import BellmanSolver
-from GridGame.StateTransProb import StateTransProb
-from GridGame.RwdTransProb import RwdTransProb
-from GridGame.Policy import Policy
-from GridGame.ActValue import ActValue
+from BellmanSolver import BellmanSolver
+from StateTransProb import StateTransProb
+from RwdTransProb import RwdTransProb
+from Policy import Policy
+from ActValue import ActValue
 
 class BOESolver:
     def __init__(self, gamma: float, state_trans_prob: StateTransProb, rwd_trans_prob: RwdTransProb):

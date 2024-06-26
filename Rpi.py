@@ -1,9 +1,9 @@
 import numpy as np
 from typing import Dict
-from GridGame.State import State
-from GridGame.Action import Action
-from GridGame.Policy import Policy
-from GridGame.RwdTransProb import RwdTransProb
+from State import State
+from Action import Action
+from Policy import Policy
+from RwdTransProb import RwdTransProb
 
 
 class Rpi:

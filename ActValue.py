@@ -1,10 +1,10 @@
 from typing import List, Dict, Tuple
 import numpy as np
 
-from GridGame.State import State
-from GridGame.Action import Action
-from GridGame.RwdTransProb import RwdTransProb
-from GridGame.StateTransProb import StateTransProb
+from State import State
+from Action import Action
+from RwdTransProb import RwdTransProb
+from StateTransProb import StateTransProb
 
 
 class ActValue:

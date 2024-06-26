@@ -1,8 +1,8 @@
 from typing import List, Dict, Tuple
 import numpy as np
-from GridGame.State import State
-from GridGame.StateTransProb import StateTransProb
-from GridGame.Policy import Policy
+from State import State
+from StateTransProb import StateTransProb
+from Policy import Policy
 
 
 class Ppi:

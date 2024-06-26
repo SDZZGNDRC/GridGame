@@ -1,9 +1,9 @@
 from typing import Optional, Union, Dict, List
 import numpy as np
 from copy import deepcopy
-from GridGame.State import State
-from GridGame.Action import Action
-from GridGame.GridWorld import GridWorld
+from State import State
+from Action import Action
+from GridWorld import GridWorld
 
 class RwdTransProb:
     '''
