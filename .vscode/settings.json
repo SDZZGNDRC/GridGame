@@ -14,5 +14,6 @@
         "wspace",
         "xticks",
         "yticks"
-    ]
+    ],
+    "svn.ignoreMissingSvnWarning": true
 }
