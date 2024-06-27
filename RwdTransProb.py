@@ -26,6 +26,8 @@ class RwdTransProb:
             return self.m[src.id, action.id][reward]
     
 
+    def sample(self, state: State, action: Action) -> float:
+        return np.random.choice(list(self.m[state.id, action.id].keys()), p=list(self.m[state.id, action.id].values()))
     def __getitem__(self, key):
         return self.m[key]
 

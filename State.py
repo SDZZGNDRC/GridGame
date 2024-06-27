@@ -27,7 +27,8 @@ class State:
     def __hash__(self):
         return hash(self.id)
 
-
+    def __int__(self):
+        return self.id
 
 
 

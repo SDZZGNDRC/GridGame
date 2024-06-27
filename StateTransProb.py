@@ -30,11 +30,21 @@ class StateTransProb:
         return self.m[key]
     
 
+    def sample(self, state: State, action: Action) -> State:
+        # Get the transition probabilities for the given state and action
+        trans_probs = self.m[state.id, action.id, :]
+
+        # Randomly choose a destination state based on the transition probabilities
+        dest_state_id = np.random.choice(len(trans_probs), p=trans_probs)
+        dest_state = State(dest_state_id)  # Create a new State object for the destination state
+        return dest_state
+
     @classmethod
     def from_grid(cls, N: int, M: int, num_actions: int, delta_acts: Dict[Tuple[int,int], Action]) -> 'StateTransProb':
         num_states = N*M
         
         state_trans_prob = np.zeros((num_states, num_actions, num_states))
+        # from left to right; then from up to down
         for x in range(N):
             for y in range(N):
                 state_trans_prob[x*N+y, delta_acts[(0,0)].id, x*N+y] = 1

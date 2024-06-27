@@ -7,6 +7,8 @@ from Action import Action
 
 class Policy:
     '''
+    m[i,j] is the probability of taking action j under state i.
+    The sum of m[i, :] will be 1
     Shape of m: (num_states, num_actions)
     '''
     def __init__(self, m: np.ndarray) -> None:
@@ -18,6 +20,15 @@ class Policy:
             raise ValueError("m must be a valid transition matrix")
         self.m = m
         
+
+    def sample(self, state: State) -> Action:
+        '''
+        Randomly choose an action given the state according to the policy
+        '''
+        action_probs = self.m[state.id]
+        action_id = np.random.choice(len(action_probs), p=action_probs)
+        return Action(action_id)
+
 
     def __getitem__(self, key):
         return self.m[key]

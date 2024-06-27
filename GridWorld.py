@@ -1,15 +1,21 @@
 import math
-from typing import Tuple, Optional, Literal, List
+from typing import Tuple, Optional, Literal, List, Union
 from pathlib import Path
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle, Circle
 from Pos import Pos
+from State import State
 
 class GridWorld:
-    def __init__(self, n: int, m: int, obstacles: List[Pos], init_pos: Optional[Pos] = None, target: Optional[Pos] = None) -> None:
+    def __init__(
+            self, n: int, m: int, 
+            obstacles: List[Pos], 
+            init_pos: Optional[Pos] = None, 
+            target: Optional[Pos] = None) -> None:
         self.n = n
         self.m = m
+        self.states = list(map(lambda i: State(i), range(n * m)))
         self.obstacles = obstacles
         if any( obstacle.x < 0 or obstacle.x >= n or 
                 obstacle.y < 0 or obstacle.y >= m for obstacle in obstacles):
@@ -17,6 +23,18 @@ class GridWorld:
         self.init_pos = init_pos if init_pos else Pos.origin()
         self.target = target if target else Pos(n - 1, m - 1)
         self.now_pos = self.init_pos
+
+    def state_to_pos(self, state: State) -> Pos:
+        if state.id >= self.n * self.m:
+            raise ValueError('State out of range')
+        x = state.id // self.m
+        y = state.id % self.m
+        return Pos(x, y)
+
+    def pos_to_state(self, pos: Union[Tuple[int, int], Pos]) -> State:
+        if not (0 <= pos[0] < self.n and 0 <= pos[1] < self.m):
+            raise ValueError('Position out of range')
+        return State(pos[0]*self.n + pos[1]*self.m)
 
     def move(self, direction: Literal['up', 'down', 'left', 'right']) -> bool:
         '''

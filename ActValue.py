@@ -8,6 +8,9 @@ from StateTransProb import StateTransProb
 
 
 class ActValue:
+    '''
+    q_pi
+    '''
     
     @classmethod
     def from_v_pi(cls, v_pi: np.ndarray, gamma: float, rwd_trans_prob: RwdTransProb, state_trans_prob: StateTransProb) -> 'ActValue':

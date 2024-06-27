@@ -9,6 +9,7 @@
         "linewidth",
         "nditer",
         "printoptions",
+        "probs",
         "rtol",
         "vectorize",
         "wspace",

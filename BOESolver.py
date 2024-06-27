@@ -8,6 +8,9 @@ from Policy import Policy
 from ActValue import ActValue
 
 class BOESolver:
+    '''
+    This solver currently only use model based method.
+    '''
     def __init__(self, gamma: float, state_trans_prob: StateTransProb, rwd_trans_prob: RwdTransProb):
         # make sure the numbers of states and actions are the same
         if state_trans_prob.m.shape[:2] != rwd_trans_prob.m.shape:

@@ -31,8 +31,12 @@ class Action:
         return hash(self.id)
     
 
+    def __int__(self):
+        return self.id
 
 num_actions = 5
+
+# up: actions[0]; down: actions[1]; left: actions[2]; right: actions[3]; stay: actions[4]
 actions = [Action(i) for i in range(num_actions)]
 
 delta_acts = {

@@ -60,7 +60,13 @@ class Pos:
         return iter((self.x, self.y))
     
 
-
+    def __getitem__(self, key):
+        if key in [0, 'x']:
+            return self.x
+        elif key in [1, 'y']:
+            return self.y
+        else:
+            raise IndexError("Index out of range")
 
 
 
