@@ -1,3 +1,9 @@
+import sys
+import os
+
+# 将项目文件所在的目录添加到Python的搜索路径中
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 import numpy as np
 import inspect
 from pathlib import Path

@@ -1,5 +1,11 @@
 from copy import deepcopy
-import numpy as np
+
+import sys
+import os
+
+# 将项目文件所在的目录添加到Python的搜索路径中
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 from BellmanSolver import BellmanSolver
 from GridWorld import GridWorld
 from StateTransProb import StateTransProb
