@@ -1,11 +1,7 @@
-from typing import Callable, Optional
-from GridWorld import GridWorld
 
 class Action:
-    def __init__(self, id: str, grid_world: Optional[GridWorld] = None, fn: Optional[Callable[[GridWorld], bool]] = None):
+    def __init__(self, id: str):
         self.id = id
-        self.grid_world = grid_world
-        self.fn = fn
 
     def __call__(self) -> bool:
         return self.fn(self.grid_world)
